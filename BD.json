@@ -1,0 +1,20 @@
+{
+  "1": {
+    "date" : "2022-02-10 18:00",
+    "price" : 150.0,
+    "description" : "Convention SoftServe",
+    "quantity" : 100
+  },
+  "2": {
+    "date" : "2021-12-12 18:00",
+    "price" : 300.0,
+    "description" : "Convention Google",
+    "quantity" : 80
+  },
+  "3": {
+    "date" : "2022-01-21 17:00",
+    "price" : 120.0,
+    "description" : "Convention SimCorp",
+    "quantity" : 200
+  }
+}
