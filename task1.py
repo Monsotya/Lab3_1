@@ -2,6 +2,9 @@ import json
 import os
 from datetime import datetime
 
+LATE_TICKET_TIME = 10
+ADVANCED_TICKET_TIME = 60
+
 
 class Event:
     """Describes an event
@@ -12,6 +15,7 @@ class Event:
                     description(str),
                     total_quantity(int),
                     left_tickets(int) """
+
     def __init__(self, event):
         with open("BD.json", "r") as read_file:
             data = json.load(read_file)
@@ -34,13 +38,13 @@ class Event:
         self.__left_tickets -= 1
         today = datetime.now()
         if is_student:
-            return Student_Ticket(self)
-        elif (self.__date - today).days < 10:
-            return Late_Ticket(self)
-        elif (self.__date - today).days >= 60:
-            return Advanced_Ticket(self)
+            return StudentTicket(self)
+        elif (self.__date - today).days < LATE_TICKET_TIME:
+            return LateTicket(self)
+        elif (self.__date - today).days >= ADVANCED_TICKET_TIME:
+            return AdvancedTicket(self)
         else:
-            return Regular_Ticket(self, self.__price)
+            return RegularTicket(self, self.__price)
 
     @property
     def price(self):
@@ -74,8 +78,9 @@ class Event:
         self.__left_tickets = number
 
 
-class Regular_Ticket:
+class RegularTicket:
     """Base class for a ticket"""
+
     def __init__(self, event, price):
         self.__ticket_number = event.code + "_" + str(event.total_quantity - event.left_tickets)
         self.__price = price
@@ -121,34 +126,22 @@ class Regular_Ticket:
                f'Price: {self.__price}\nDescription: {self.__event.description}\nDate: {self.__event.date}'
 
 
-class Advanced_Ticket(Regular_Ticket):
+class AdvancedTicket(RegularTicket):
     def __init__(self, event):
         self.__price = event.price * 0.6
         super().__init__(event, self.__price)
 
-    @property
-    def price(self):
-        return self.__price
 
-
-class Student_Ticket(Regular_Ticket):
+class StudentTicket(RegularTicket):
     def __init__(self, event):
         self.__price = event.price * 0.5
         super().__init__(event, self.__price)
 
-    @property
-    def price(self):
-        return self.__price
 
-
-class Late_Ticket(Regular_Ticket):
+class LateTicket(RegularTicket):
     def __init__(self, event):
         self.__price = event.price * 1.1
         super().__init__(event, self.__price)
-
-    @property
-    def price(self):
-        return self.__price
 
 
 print("Enter event`s id")
