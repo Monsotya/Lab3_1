@@ -5,13 +5,12 @@ from datetime import datetime
 
 class Pizza:
     """Class describes base class for pizza"""
-    __base_for_pizza = 40
 
     def __init__(self, *args):
         with open("toppings.json", "r") as read_file:
             data = json.load(read_file)
         self.__toppings = []
-        self.__cost = Pizza.__base_for_pizza
+        self.__cost = data.get("base_for_pizza")
         toppings = args[0]
         for ingredient in toppings:
             if not (ingredient in data):
@@ -29,32 +28,28 @@ class Pizza:
 
 
 class MondayPizza(Pizza):
-    def __init__(self, *args):
-        toppings = ["tomato", "bacon", "basil", "chilli", "mozzarella"]
+    def __init__(self, toppings, *args):
         for i in args:
             toppings += i
         super().__init__(toppings)
 
 
 class TuesdayPizza(Pizza):
-    def __init__(self, *args):
-        toppings = ["mushroom", "pineapple", "chicken", "corn", "mozzarella"]
+    def __init__(self, toppings, *args):
         for i in args:
             toppings += i
         super().__init__(toppings)
 
 
 class WednesdayPizza(Pizza):
-    def __init__(self, *args):
-        toppings = ["onion", "ham", "basil", "chilli", "mozzarella"]
+    def __init__(self, toppings, *args):
         for i in args:
             toppings += i
         super().__init__(toppings)
 
 
 class ThursdayPizza(Pizza):
-    def __init__(self, *args):
-        toppings = ["olives", "prosciutto", "basil", "chilli", "cheddar"]
+    def __init__(self, toppings, *args):
         for i in args:
             toppings += i
 
@@ -62,24 +57,21 @@ class ThursdayPizza(Pizza):
 
 
 class FridayPizza(Pizza):
-    def __init__(self, *args):
-        toppings = ["tomato", "pepperoni", "olives", "mozzarella"]
+    def __init__(self, toppings, *args):
         for i in args:
             toppings += i
         super().__init__(toppings)
 
 
 class SaturdayPizza(Pizza):
-    def __init__(self, *args):
-        toppings = ["mushroom", "olives", "chicken", "cheddar", "corn"]
+    def __init__(self, toppings, *args):
         for i in args:
             toppings += i
         super().__init__(toppings)
 
 
 class SundayPizza(Pizza):
-    def __init__(self, *args):
-        toppings = ["pineapple", "ham", "corn", "prosciutto", "cheddar"]
+    def __init__(self, toppings, *args):
         for i in args:
             toppings += i
 
@@ -93,9 +85,11 @@ class OrderPizza:
                           4: FridayPizza, 5: SaturdayPizza, 6: SundayPizza}
 
     def __init__(self, *args):
+        with open("pizza.json", "r") as read_file:
+            data = json.load(read_file)
         __order_number = 0
         week_day = datetime.today().weekday()
-        self.__pizza = OrderPizza.__pizza_dictionary.get(week_day)(args)
+        self.__pizza = OrderPizza.__pizza_dictionary.get(week_day)(data.get(str(week_day)), args)
         self.__cost = self.__pizza.cost
         self.__toppings = self.__pizza.toppings
         self.save_ticket()

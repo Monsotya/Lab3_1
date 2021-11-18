@@ -1,0 +1,9 @@
+{
+  "0":["tomato", "bacon", "basil", "chili", "mozzarella"],
+  "1": ["mushroom", "pineapple", "chicken", "corn", "mozzarella"],
+  "2": ["onion", "ham", "basil", "chili", "mozzarella"],
+  "3": ["olives", "prosciutto", "basil", "chilli", "cheddar"],
+  "4": ["tomato", "pepperoni", "olives", "mozzarella"],
+  "5": ["mushroom", "olives", "chicken", "cheddar", "corn"],
+  "6": ["pineapple", "ham", "corn", "prosciutto", "cheddar"]
+}

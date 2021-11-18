@@ -1,9 +1,8 @@
 import json
 import os
+from Constants import LATE_TICKET_TIME, ADVANCED_TICKET_TIME, ADVANCED_TICKET_COEFFICIENT, STUDENT_TICKET_COEFFICIENT, \
+    LATE_TICKET_COEFFICIENT
 from datetime import datetime
-
-LATE_TICKET_TIME = 10
-ADVANCED_TICKET_TIME = 60
 
 
 class Event:
@@ -128,20 +127,20 @@ class RegularTicket:
 
 class AdvancedTicket(RegularTicket):
     def __init__(self, event):
-        self.__price = event.price * 0.6
-        super().__init__(event, self.__price)
+        price = event.price * ADVANCED_TICKET_COEFFICIENT
+        super().__init__(event, price)
 
 
 class StudentTicket(RegularTicket):
     def __init__(self, event):
-        self.__price = event.price * 0.5
-        super().__init__(event, self.__price)
+        price = event.price * STUDENT_TICKET_COEFFICIENT
+        super().__init__(event, price)
 
 
 class LateTicket(RegularTicket):
     def __init__(self, event):
-        self.__price = event.price * 1.1
-        super().__init__(event, self.__price)
+        price = event.price * LATE_TICKET_COEFFICIENT
+        super().__init__(event, price)
 
 
 print("Enter event`s id")

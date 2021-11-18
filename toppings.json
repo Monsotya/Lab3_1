@@ -1,4 +1,5 @@
 {
+  "base_for_pizza" : 50,
   "mushroom" : 30,
   "mozzarella": 20,
   "pepperoni" : 40,
